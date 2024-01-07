@@ -89,20 +89,24 @@ function addTaskCardToHtml(inputText, inputDate, inputTime) {
 }
 
 function clearTasksFromBoard() {
-    localStorage.clear();
+        localStorage.clear();
 }
 
 clearTaskBoard.addEventListener(`click`, function() {
-    clearTasksFromBoard();
-    displayUserTask.textContent = "";
+    if(confirm(`are you sure?`)) {
+        clearTasksFromBoard();
+        displayUserTask.textContent = "";
+    }
 });
 
 function deleteTaskButton(taskCard) {
     const index = Array.from(displayUserTask.children).indexOf(taskCard);
     if(index !== -1) {
         taskArray.splice(index, 1);
-        displayUserTask.removeChild(taskCard);
-        saveInLocalStorage(taskArray);
+        if(confirm(`are you sure?`)) {
+            displayUserTask.removeChild(taskCard);
+            saveInLocalStorage(taskArray);
+        }
     }
 }
 
