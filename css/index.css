@@ -20,8 +20,6 @@ body {
 
 .input-background-image {
   background-image: url(/image/backgroundOfInputs.jpg);
-  background-size: contain;
-  width: 100%;
 }
 
 .row {
@@ -31,7 +29,7 @@ body {
 }
 
 .input-group {
-  margin: 12px auto;
+  margin: 15px auto;
   margin-left: 20%;
   border: 1px solid black;
 }
@@ -69,6 +67,7 @@ body {
 
 textarea {
   background-color: transparent;
+  resize: none;
   border: 0;
 }
 
