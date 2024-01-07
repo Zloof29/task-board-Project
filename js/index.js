@@ -94,6 +94,7 @@ function clearTasksFromBoard() {
 
 clearTaskBoard.addEventListener(`click`, function() {
     clearTasksFromBoard();
+    displayUserTask.textContent = "";
 });
 
 function deleteTaskButton(taskCard) {
