@@ -21,8 +21,11 @@ body {
 
 .input-background-image {
   background-image: url(/image/backgroundOfInputs.jpg);
+ update2
   width: 80%;
   margin: auto;
+=======
+ main
 }
 
 .row {
