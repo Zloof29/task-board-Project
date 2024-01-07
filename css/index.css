@@ -3,6 +3,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  overflow-x: hidden;
 }
 
 .title {
@@ -20,6 +21,8 @@ body {
 
 .input-background-image {
   background-image: url(/image/backgroundOfInputs.jpg);
+  width: 80%;
+  margin: auto;
 }
 
 .row {
@@ -36,7 +39,7 @@ body {
 
 .btn {
   border: 1px solid black;
-  margin-left: 100%;
+  width: 100%;
   margin-top: 9px;
 }
 
