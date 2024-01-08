@@ -23,24 +23,13 @@ saveButton.addEventListener(`click`, function () {
 
     taskArray.push(taskobj);
     saveInLocalStorage(taskArray);
-    clearInputs();
     addTaskCardToHtml(inputText, inputDate, inputTime);
-    takeFromLocalStorage();
+    clearInputs();
 })
 
 function validateInputs(inputText, inputDate, inputTime) {
-    if (!inputText) {
-        alert('Please enter a task');
-        return false;
-    }
-
-    if (!inputDate) {
-        alert('Please select a date');
-        return false;
-    }
-
-    if (!inputTime) {
-        alert('Please select a time');
+    if (!inputText || !inputDate || !inputTime) {
+        alert('Please enter a task, date and time');
         return false;
     }
 
@@ -63,7 +52,7 @@ function addTaskCardToHtml(inputText, inputDate, inputTime) {
 
     createDeleteButtonToHtml(taskCard);
     const deleteButton = taskCard.querySelector(`.deleteButton`);
-    deleteButton.addEventListener(`click`, function() {
+    deleteButton.addEventListener(`click`, function () {
         deleteTaskButton(taskCard);
     });
 
@@ -89,11 +78,11 @@ function addTaskCardToHtml(inputText, inputDate, inputTime) {
 }
 
 function clearTasksFromBoard() {
-        localStorage.clear();
+    localStorage.clear();
 }
 
-clearTaskBoard.addEventListener(`click`, function() {
-    if(confirm(`are you sure?`)) {
+clearTaskBoard.addEventListener(`click`, function () {
+    if (confirm(`are you sure?`)) {
         clearTasksFromBoard();
         displayUserTask.textContent = "";
     }
@@ -101,9 +90,9 @@ clearTaskBoard.addEventListener(`click`, function() {
 
 function deleteTaskButton(taskCard) {
     const index = Array.from(displayUserTask.children).indexOf(taskCard);
-    if(index !== -1) {
+    if (index !== -1) {
         taskArray.splice(index, 1);
-        if(confirm(`are you sure?`)) {
+        if (confirm(`are you sure?`)) {
             displayUserTask.removeChild(taskCard);
             saveInLocalStorage(taskArray);
         }
