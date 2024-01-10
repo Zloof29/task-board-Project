@@ -21,7 +21,7 @@ body {
 
 .input-background-image {
   background-image: url(/image/backgroundOfInputs.jpg);
-  width: 80%;
+  width: 180vh;
   margin: auto;
 }
 
@@ -47,14 +47,20 @@ body {
 .task-card {
   display: inline-block;
   margin: 30px 20px;
-  padding: 40px 10px 0;
-  border: 1px solid #ccc;
-  background-image: url(/image/imageForCards.jpg);
+  padding: 40px 8px 0;
+  border: 0;
+  background-image: url(/image/imageForCards.png);
   background-repeat: no-repeat;
   background-size: cover;
   width: 200px;
   height: 250px;
   position: relative;
+  animation: fadeIn 2s;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 .deleteButton {
@@ -64,8 +70,19 @@ body {
   background-color: transparent;
   opacity: 0;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 10px;
+  right: 17px;
+}
+
+.doneButton {
+  border: 0;
+  font-size: 22px;
+  font-weight: 600;
+  background-color: transparent;
+  opacity: 0;
+  position: absolute;
+  top: 10px;
+  right: 50px;
 }
 
 textarea {
@@ -83,7 +100,16 @@ textarea {
   opacity: 1;
 }
 
+.task-card:hover>.doneButton {
+  opacity: 1;
+}
+
 .task-card>input[type="date"]::-webkit-calendar-picker-indicator,
 .task-card>input[type="time"]::-webkit-calendar-picker-indicator {
   display: none;
+}
+
+.displayTask {
+  width: 100%;
+  margin-left: 35px;
 }
