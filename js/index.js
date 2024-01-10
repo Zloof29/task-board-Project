@@ -50,16 +50,10 @@ function addTaskCardToHtml(inputText, inputDate, inputTime) {
     const taskCard = document.createElement('div');
     taskCard.classList.add('task-card');
 
-    createDeleteButtonToHtml(taskCard);
-    const deleteButton = taskCard.querySelector(`.deleteButton`);
-    deleteButton.addEventListener(`click`, function () {
-        deleteTaskButton(taskCard);
-    });
-
     const textArea = document.createElement(`textarea`);
     textArea.setAttribute(`readonly`, `readonly`);
     textArea.setAttribute(`cols`, `20`);
-    textArea.setAttribute(`rows`, `5`);
+    textArea.setAttribute(`rows`, `6`);
     const userText = document.createTextNode(inputText);
     textArea.appendChild(userText);
     taskCard.appendChild(textArea);
@@ -75,6 +69,36 @@ function addTaskCardToHtml(inputText, inputDate, inputTime) {
     taskCard.appendChild(userTime);
 
     displayUserTask.appendChild(taskCard);
+
+    createDeleteButtonToHtml(taskCard);
+    const deleteButton = taskCard.querySelector(`.deleteButton`);
+    deleteButton.addEventListener(`click`, function () {
+        deleteTaskButton(taskCard);
+    });
+
+    if (taskArray.find(task => task.text === inputText && task.complete)) {
+        textArea.style.textDecoration = `line-through`;
+    }
+
+    createDoneTaskButton(taskCard);
+    const doneButton = taskCard.querySelector(`.doneButton`);
+    doneButton.addEventListener(`click`, function () {
+        if (textArea.style.textDecoration === `line-through`) {
+            textArea.style.textDecoration = ``;
+            updateTaskForLineThrough(inputText, false);
+        } else {
+            textArea.style.textDecoration = `line-through`;
+            updateTaskForLineThrough(inputText, true);
+        }
+    })
+}
+
+function updateTaskForLineThrough(inputText, complete) {
+    const task = taskArray.find(task => task.text === inputText);
+    if (task) {
+        task.complete = complete;
+        saveInLocalStorage(taskArray);
+    }
 }
 
 function clearTasksFromBoard() {
@@ -102,10 +126,18 @@ function deleteTaskButton(taskCard) {
 function createDeleteButtonToHtml(taskCard) {
     const deleteButton = document.createElement(`button`);
     deleteButton.classList.add(`deleteButton`);
-    const nameOfDeleteButton = document.createTextNode(`X`);
-    deleteButton.appendChild(nameOfDeleteButton);
+    deleteButton.innerHTML = `&#10006;`;
     taskCard.appendChild(deleteButton);
     return deleteButton;
+}
+
+
+function createDoneTaskButton(taskCard) {
+    const doneButton = document.createElement(`button`);
+    doneButton.classList.add(`doneButton`);
+    doneButton.innerHTML = '&#10004;';
+    taskCard.appendChild(doneButton);
+    return doneButton;
 }
 
 function takeFromLocalStorage() {
