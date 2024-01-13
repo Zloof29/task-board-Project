@@ -29,7 +29,7 @@ saveButton.addEventListener(`click`, function () {
 
 function validateInputs(inputText, inputDate, inputTime) {
     if (!inputText || !inputDate || !inputTime) {
-        displayErrorAlert('Please enter a task, date, and time');
+        displayErrorAlert('Please enter a task, date, and time!');
         return false;
     }
 
@@ -80,9 +80,10 @@ function addTaskCardToHtml(inputText, inputDate, inputTime) {
         textArea.style.textDecoration = `line-through`;
     }
 
+    createEditButtonToHtml(taskCard, inputText, inputDate, inputTime);
+    
     createDoneTaskButton(taskCard);
     const doneButton = taskCard.querySelector(`.doneButton`);
-
     doneButton.addEventListener(`click`, function () {
         if (textArea.style.textDecoration === `line-through`) {
             textArea.style.textDecoration = ``;
@@ -93,6 +94,60 @@ function addTaskCardToHtml(inputText, inputDate, inputTime) {
         }
     })
 }
+
+function createEditButtonToHtml(taskCard, inputText, inputDate, inputTime) {
+    const editButton = document.createElement('button');
+    editButton.classList.add('editButton');
+    editButton.innerHTML = 'Edit';
+    taskCard.appendChild(editButton);
+
+    editButton.addEventListener('click', function () {
+        editTaskButton(taskCard, inputText, inputDate, inputTime);
+    });
+
+    return editButton;
+}
+
+function editTaskButton(taskCard, inputText) {
+    const textArea = taskCard.querySelector(`textarea`);
+    const userDate = taskCard.querySelector(`input[type="date"]`);
+    const userTime = taskCard.querySelector(`input[type="Time"]`);
+    const editButton = taskCard.querySelector(`.editButton`);
+
+    textArea.removeAttribute(`readonly`, `readonly`);
+    userDate.removeAttribute(`readonly`, `readonly`);
+    userTime.removeAttribute(`readonly`, `readonly`);
+
+    editButton.textContent = `Save`;
+
+    function editClickHandler() {
+        const newText = textArea.value.trim();
+        const newDate = userDate.value;
+        const newTime = userTime.value;
+
+        textArea.setAttribute(`readonly`, `readonly`);
+        userDate.setAttribute(`readonly`, `readonly`);
+        userTime.setAttribute(`readonly`, `readonly`);
+
+        editButton.textContent = `Edit`;
+
+        updateTask(inputText, newText, newDate, newTime);
+    }
+    editButton.addEventListener(`click`, editClickHandler);
+}
+
+function updateTask(oldText, newText, newDate, newTime) {
+    const taskIndex = taskArray.findIndex( task => task.text ===oldText);
+
+    if(taskIndex !== -1) {
+        taskArray[taskIndex].text = newText;
+        taskArray[taskIndex].date = newDate;
+        taskArray[taskIndex].time = newTime;
+
+        saveInLocalStorage(taskArray);
+    }
+}
+
 
 function updateTaskForLineThrough(inputText, complete) {
     const task = taskArray.find(task => task.text === inputText);
@@ -112,7 +167,7 @@ function displayErrorAlert(message) {
         setTimeout(() => {
             errorMessage.textContent = '';
             errorMessage.style.display = 'none';
-          }, 6000);
+        }, 5000);
 
     } else {
         errorMessage.textContent = '';
