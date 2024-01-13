@@ -21,9 +21,10 @@ body {
 
 .input-background-image {
   background-image: url(/image/backgroundOfInputs.jpg);
- update5
-  width: 180vh;
-  margin: auto;
+update6
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
 }
 
 .row {
@@ -40,7 +41,6 @@ body {
 
 .btn {
   border: 1px solid black;
-  width: 100%;
   margin-top: 9px;
 }
 
@@ -113,4 +113,9 @@ textarea {
 .displayTask {
   width: 100%;
   margin-left: 35px;
+}
+update6
+
+#errorMessage {
+  display: none;
 }
