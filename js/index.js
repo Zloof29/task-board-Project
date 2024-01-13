@@ -29,7 +29,7 @@ saveButton.addEventListener(`click`, function () {
 
 function validateInputs(inputText, inputDate, inputTime) {
     if (!inputText || !inputDate || !inputTime) {
-        alert('Please enter a task, date and time');
+        displayErrorAlert('Please enter a task, date, and time');
         return false;
     }
 
@@ -82,6 +82,7 @@ function addTaskCardToHtml(inputText, inputDate, inputTime) {
 
     createDoneTaskButton(taskCard);
     const doneButton = taskCard.querySelector(`.doneButton`);
+
     doneButton.addEventListener(`click`, function () {
         if (textArea.style.textDecoration === `line-through`) {
             textArea.style.textDecoration = ``;
@@ -95,9 +96,27 @@ function addTaskCardToHtml(inputText, inputDate, inputTime) {
 
 function updateTaskForLineThrough(inputText, complete) {
     const task = taskArray.find(task => task.text === inputText);
+
     if (task) {
         task.complete = complete;
         saveInLocalStorage(taskArray);
+    }
+}
+
+function displayErrorAlert(message) {
+    const errorMessage = document.querySelector(`#errorMessage`);
+    if (message) {
+        errorMessage.textContent = message;
+        errorMessage.style.display = 'block';
+
+        setTimeout(() => {
+            errorMessage.textContent = '';
+            errorMessage.style.display = 'none';
+          }, 6000);
+
+    } else {
+        errorMessage.textContent = '';
+        errorMessage.style.display = 'none';
     }
 }
 
@@ -150,3 +169,4 @@ function takeFromLocalStorage() {
         addTaskCardToHtml(task.text, task.date, task.time);
     });
 })();
+
