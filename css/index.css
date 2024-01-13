@@ -21,6 +21,7 @@ body {
 
 .input-background-image {
   background-image: url(/image/backgroundOfInputs.jpg);
+update6
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100% 100%;
@@ -113,6 +114,7 @@ textarea {
   width: 100%;
   margin-left: 35px;
 }
+update6
 
 #errorMessage {
   display: none;
